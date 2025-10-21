@@ -1,0 +1,139 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+
+// Экран 1 - Главная
+const Start = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Мои контакты</Text>
+      <Text style={styles.subtitle}>Простое приложение для хранения контактов</Text>
+      
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="Посмотреть контакты" 
+          onPress={() => navigation.navigate('Second')}
+          color="#007AFF"
+        />
+      </View>
+    </View>
+  );
+};
+
+// Экран 2 - Список контактов
+const Second = (props) => {
+  const contacts = [
+    { id: '1', name: 'Иван Иванов', phone: '+7 (999) 123-45-67' },
+    { id: '2', name: 'Мария Петрова', phone: '+7 (999) 765-43-21' },
+    { id: '3', name: 'Алексей Сидоров', phone: '+7 (999) 555-44-33' },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Список контактов</Text>
+      
+      {contacts.map(contact => (
+        <View key={contact.id} style={styles.contactCard}>
+          <Text style={styles.contactName}>{contact.name}</Text>
+          <Text style={styles.contactPhone}>{contact.phone}</Text>
+        </View>
+      ))}
+      
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="Назад" 
+          onPress={() => props.navigation.goBack()}
+          color="#8E8E93"
+        />
+        <Button 
+          title="Добавить контакт" 
+          onPress={() => props.navigation.navigate('Third')}
+          color="#34C759"
+        />
+      </View>
+    </View>
+  );
+};
+
+// Экран 3 - Добавление контакта
+const Third = (props) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Добавить контакт</Text>
+      <Text style={styles.subtitle}>Здесь можно добавить новый контакт</Text>
+      
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="На главную" 
+          onPress={() => props.navigation.popToTop()}
+          color="#8E8E93"
+        />
+        <Button 
+          title="Назад к контактам" 
+          onPress={() => props.navigation.goBack()}
+          color="#007AFF"
+        />
+      </View>
+    </View>
+  );
+};
+
+// навигатор
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Start">
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Second" component={Second} />
+        <Stack.Screen name="Third" component={Third} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 30,
+    color: '#666',
+  },
+  buttonContainer: {
+    gap: 10,
+    marginTop: 20,
+  },
+  contactCard: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  contactName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  contactPhone: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
+  },
+});
