@@ -1,32 +1,49 @@
-import { Text, View, Image, TextInput, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import Styles from './styles'
+import {StyleSheet} from 'react-native';
 
-function check() {
-  alert("Ваши данные приняты");
-}
+const Styles = StyleSheet.create({
+  container:{
+    alignItems:"center",
+    paddingVertical:"20%"
+  },
+  title:{
+    fontWeight:700,
+    fontSize: 24
+  },
+  text:{
+    fontWeight:400,
+    fontSize:16,
+    marginHorizontal: 32,
+    marginVertical: 8,
+    textAlign:'center'
+  },
+  input: {
+    width: '80%',
+    marginTop: 8,
+    paddingHorizontal: 8,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingVertical:10,
+  },
+  button: {
+    marginTop: 16,
+    backgroundColor: "#007aff",
+    width: "80%",
+    alignItems: "center",
+    paddingVertical:10,
+    borderRadius: 8,
+  },
+  buttonText:{
+    fontWeight:400,
+    fontSize:16,
+    color: 'white'
+  },
+  link: {
+    fontWeight:400,
+    fontSize:16,
+    textDecorationLine: 'underline',
+    marginTop: 8,
+  },
+});
 
-const Reg = (props) => {
-  return (
-    <View style = {Styles.container}>
-      <Text style = {Styles.title}>
-        Регистрация
-      </Text>
-      <Text style = {Styles.text}>
-        Введите свои данные для регистрации и придумайте пароль
-      </Text>
-      <TextInput style = {Styles.input} placeholder="Имя"/>
-      <TextInput style = {Styles.input} placeholder="Логин"/>
-      <TextInput style = {Styles.input} placeholder="Пароль" secureTextEntry/>
-      <TouchableOpacity style = {Styles.button} onPress={() => check()}>
-        <Text style = {Styles.buttonText}>
-          Зарегистрироваться
-        </Text>
-      </TouchableOpacity>
-      <Text style = {Styles.text, Styles.link} onPress={() => props.navigation.goBack()}>
-        Войти
-      </Text>
-    </View>
-  );
-};
-
-export default Reg;
+export default Styles
